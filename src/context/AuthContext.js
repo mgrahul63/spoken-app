@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { loginUser, registerUser } from "../api";
+import { getMe, loginUser, registerUser } from "../api";
 
 const AuthContext = createContext();
 
@@ -10,16 +10,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      axios
-        .get("/api/auth/me")
-        .then((r) => setUser(r.data.user))
-        .catch(() => logout())
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
+    const loadUser = async () => {
+      if (token) {
+        try {
+          const { data } = await getMe();
+          setUser(data?.user);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    loadUser();
   }, [token]);
 
   async function login(email, password) {
@@ -32,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   async function register(name, email, password) {
-    const { data } = await registerUser(name, email, password);
+    const { data } = await registerUser;
     localStorage.setItem("speakup_token", data.token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
     setToken(data.token);
