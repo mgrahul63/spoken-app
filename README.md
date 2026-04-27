@@ -5,6 +5,10 @@ SpeakUp is a structured English learning platform designed to help users move fr
 The goal is simple: help users actually speak English confidently, not just memorize it.
 
 ---
+## 🔴 Live Demo
+
+👉 https://spoken-app-low1.vercel.app/
+
 
 ## 🗂️ Project Structure
 
