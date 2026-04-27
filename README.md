@@ -96,6 +96,12 @@ cd backend
 npm install
 npm run dev
 ```
+.env file
+
+MONGO_URI=mongoos uri 
+JWT_SECRET=super_secret_jwt_key 
+PORT=5000
+CLIENT_ORIGIN=your frontend uri
 
 Server runs at: **http://localhost:5000**
 
@@ -110,6 +116,11 @@ cd frontend
 npm install
 npm start
 ```
+
+.env file
+
+REACT_APP_API_URL=your backend uri
+
 
 App runs at: **http://localhost:3000**
 
