@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { useState } from "react";
 import { fetchWords } from "../api/words";
+import SkeletonCard from "../components/SkeletonCard";
 import Modal from "../components/wordAndverb/Modal";
 import VerbCard from "../components/wordAndverb/VerbCard";
 
@@ -13,7 +14,7 @@ const WordPages = () => {
     queryKey: ["words"],
     queryFn: fetchWords,
   });
-  if (isLoading) return <p>Loading...</p>;
+
   if (error) return <p>Error...</p>;
 
   const words = data?.words || [];
@@ -50,15 +51,17 @@ const WordPages = () => {
         />
       </div>
 
+      {isLoading && <SkeletonCard wordLen={10} defLen={60} />}
+
       {/* Word cards */}
       <div className="flex flex-col gap-2.5">
-        {filtered.map((v, i) => (
+        {filtered?.map((v, i) => (
           <VerbCard key={i} verb={v} onSelect={setSelected} />
         ))}
       </div>
 
       {/* Empty state */}
-      {filtered.length === 0 && (
+      {filtered?.length === 0 && (
         <div className="text-center py-12">
           <p className="text-sm text-slate-500">
             No words found for{" "}
