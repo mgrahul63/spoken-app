@@ -175,7 +175,7 @@ const DashboardPage = () => {
 
   const level = user?.currentLevel || 0;
   const levelStyle = LEVEL_STYLES[level] ?? LEVEL_STYLES[0];
-  
+
   const statCards = [
     {
       icon: "⚡",

@@ -19,8 +19,7 @@ export const getOverviewStats = () => {
   return api.get("/api/progress/stats/overview");
 };
 
-export const getLessons = () => {
-  console.log("first");
+export const getLessons = () => { 
   return api.get("/api/lessons");
 };
 

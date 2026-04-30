@@ -55,7 +55,8 @@ export default function ProgressBar({ completedSections = {} }) {
             >
               <span
                 className={`px-1.5 py-0.5 rounded
-            ${completedSections[s] ? "text-white" : "text-slate-500"}`}
+  ${completedSections[s] ? "text-white" : "text-slate-500"}
+  hidden sm:inline`}
               >
                 {LABELS[s]}
               </span>
