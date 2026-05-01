@@ -5,6 +5,7 @@ import { fetchWords } from "../api/words";
 import SkeletonCard from "../components/SkeletonCard";
 import Modal from "../components/wordAndverb/Modal";
 import VerbCard from "../components/wordAndverb/VerbCard";
+import useDebounce from "../hooks/useDebounce";
 
 const WordPages = () => {
   const [selected, setSelected] = useState(null);
@@ -19,9 +20,14 @@ const WordPages = () => {
 
   const words = data?.words || [];
 
-  const filtered = words.filter((w) =>
-    w.base.toLowerCase().includes(search.toLowerCase()),
-  );
+  const debouncedSearch = useDebounce(search, 300);
+
+  const query = debouncedSearch.trim().toLowerCase();
+
+  const filtered = words.filter((w) => {
+    const base = w.base || "";
+    return base.toLowerCase().includes(query);
+  });
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-6 flex flex-col gap-5">

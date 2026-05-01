@@ -5,6 +5,7 @@ import { fetchVerbs } from "../api/verbs";
 import SkeletonCard from "../components/SkeletonCard";
 import Modal from "../components/wordAndverb/Modal";
 import VerbCard from "../components/wordAndverb/VerbCard";
+import useDebounce from "../hooks/useDebounce";
 
 const VerbPage = () => {
   const [selected, setSelected] = useState(null);
@@ -18,9 +19,15 @@ const VerbPage = () => {
   if (error) return <p>Error...</p>;
 
   const verbs = data?.verbs || [];
-  const filtered = verbs?.filter((w) =>
-    w.base.toLowerCase().includes(search.toLowerCase()),
-  );
+
+  const debouncedSearch = useDebounce(search, 300);
+
+  const query = debouncedSearch.trim().toLowerCase();
+
+  const filtered = verbs?.filter((w) => {
+    const base = w.base || "";
+    return base.toLowerCase().includes(query);
+  });
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-6 flex flex-col gap-5">
