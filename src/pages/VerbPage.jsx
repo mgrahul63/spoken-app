@@ -35,8 +35,14 @@ const VerbPage = () => {
       <div>
         <h1 className="text-xl font-semibold text-slate-100 mb-0.5">Verbs</h1>
         <p className="text-sm text-slate-400">
-          <span className="text-emerald-400 font-medium">{verbs.length}</span>{" "}
-          verbs available
+          <span className="text-emerald-400 font-medium">
+            {filtered?.length}
+          </span>{" "}
+          {filtered.length === 1
+            ? "verb available"
+            : filtered.length === 0
+              ? "no verb available"
+              : "verbs available"}
         </p>
       </div>
 

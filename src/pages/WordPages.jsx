@@ -37,8 +37,14 @@ const WordPages = () => {
           Vocabulary
         </h1>
         <p className="text-sm text-slate-400">
-          <span className="text-emerald-400 font-medium">{words.length}</span>{" "}
-          words available
+          <span className="text-emerald-400 font-medium">
+            {filtered?.length}
+          </span>{" "}
+          {filtered.length === 1
+            ? "word available"
+            : filtered.length === 0
+              ? "no words available"
+              : "words available"}
         </p>
       </div>
 
